@@ -7,3 +7,5 @@
 /JavascriptExtensions/*
 !/JavascriptExtensions/LP-Racing
 !.gitignore
+!LICENSE
+!README.md
