@@ -4,8 +4,7 @@
 !/DashTemplates/LP-Racing
 /DashTemplates/LP-Racing/_Backups
 !/JavascriptExtensions
-/JavascriptExtensions/*
-!/JavascriptExtensions/LP-Racing
+!/JavascriptExtensions/LP-Racing*
 !.gitignore
 !LICENSE
 !README.md
