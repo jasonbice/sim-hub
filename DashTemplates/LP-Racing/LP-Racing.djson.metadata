@@ -1,0 +1,19 @@
+{
+  "Category": null,
+  "Title": null,
+  "Description": null,
+  "Author": "Jason Bice",
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": false,
+  "Width": 854.0,
+  "Height": 480.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": []
+}

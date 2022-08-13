@@ -1,0 +1,9 @@
+/*
+!/DashTemplates
+/DashTemplates/*
+!/DashTemplates/LP-Racing
+/DashTemplates/LP-Racing/_Backups
+!/JavascriptExtensions
+/JavascriptExtensions/*
+!/JavascriptExtensions/LP-Racing
+!.gitignore
