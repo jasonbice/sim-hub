@@ -428,7 +428,7 @@
               "LedContainers": [
                 {
                   "LedCount": 28,
-                  "Color": "White",
+                  "Color": "255, 255, 0",
                   "BlinkEnabled": false,
                   "BlinkDelay": 500,
                   "DualBlinkTimingEnabled": false,
@@ -482,8 +482,8 @@
   "GlobalBrightness": 50.0,
   "UseProfileBrightness": false,
   "Error": "",
-  "LastLoaded": "2022-08-13T10:48:47.5449587-04:00",
-  "Name": "LP-Racing",
+  "LastLoaded": "2022-08-06T16:29:40.8513744-04:00",
+  "Name": "Default Profile",
   "ProfileId": "b4c2a8fe-820e-406c-9e31-28e621b58f50",
   "GameCode": null
 }
