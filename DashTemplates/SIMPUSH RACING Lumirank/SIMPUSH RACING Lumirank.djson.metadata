@@ -1,0 +1,23 @@
+{
+  "Category": null,
+  "Title": null,
+  "Description": null,
+  "Author": null,
+  "ScreenCount": 2.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [
+    1
+  ],
+  "MainPreviewIndex": 0,
+  "IsOverlay": false,
+  "Width": 850.0,
+  "Height": 520.0,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": [
+    0
+  ]
+}
