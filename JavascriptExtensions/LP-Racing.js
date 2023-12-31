@@ -1,3 +1,11 @@
+function getLicenseBgColor(color) {
+    return adjustOpacity(color, '44');
+}
+
+function adjustOpacity(color, hexOpacity) {
+    return `#${hexOpacity}${color.substring(3)}`;
+}
+
 /**
  * Calculates the rate of change in the lap delta relative to the optimal lap.
  * @returns The delta's rage of change, as a decimal value.
