@@ -1,5 +1,11 @@
+function getLicenseFgColor(color) {
+    if (color == '#FF0153db') return '#FF00a7ff';
+
+    return color;
+}
+
 function getLicenseBgColor(color) {
-    return adjustOpacity(color, '44');
+    return adjustOpacity(color, '66');
 }
 
 function adjustOpacity(color, hexOpacity) {
