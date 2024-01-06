@@ -1,5 +1,14 @@
+const LP_PRIMARY_COLOR = '#ddff00';
+
 function getLicenseFgColor(color) {
+    // Brighter Class A
     if (color == '#FF0153db') return '#FF00a7ff';
+
+    // Brighter Class B
+    if (color == '#6600c702') return '#FF00FF03';
+
+    // Brighter Class R
+    if (color == '#FFB40800') return '#FFFF0000';
 
     return color;
 }
