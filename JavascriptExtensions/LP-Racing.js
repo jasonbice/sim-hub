@@ -1,5 +1,15 @@
 const LP_PRIMARY_COLOR = '#ddff00';
 
+function displaySetupWarning() {
+    if ($prop('SessionType') == 'Qualifying' && 
+        $prop('SessionTimeLeft') == 0 &&
+        $prop('GameRawData.SessionData.DriverInfo.DriverSetupName')?.indexOf('Q') > -1) {
+        return true;
+    }
+
+    return false;
+}
+
 function getLicenseFgColor(color) {
     // Brighter Class A
     if (color == '#FF0153db') return '#FF00a7ff';
