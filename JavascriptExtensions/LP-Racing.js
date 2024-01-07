@@ -1,13 +1,40 @@
 const LP_PRIMARY_COLOR = '#ddff00';
+const PIT_BOX_NEAR_THRESHOLD = 2.108;
+const PIT_BOX_FAR_THRESHOLD = -1.8753;
+const FEET_PER_METER = 3.28084;
 
-function displaySetupWarning() {
-    if ($prop('SessionType') == 'Qualifying' && 
-        $prop('SessionTimeLeft') == 0 &&
-        $prop('GameRawData.SessionData.DriverInfo.DriverSetupName')?.indexOf('Q') > -1) {
-        return true;
+function driverMissedPitBox() {
+    return getAdjustedPitBoxDistanceInMeters() < 0;
+}
+
+function getAdjustedPitBoxDistanceInMeters() {
+    const distance = $prop('IRacingExtraProperties.iRacing_DistanceToPitBox');
+
+    let adjustedDistance = distance;
+
+    if (distance >= PIT_BOX_NEAR_THRESHOLD) {
+        adjustedDistance = distance - PIT_BOX_NEAR_THRESHOLD;
     }
 
-    return false;
+    if (isDriverInPitBox()) return 0;
+
+    if (distance <= PIT_BOX_FAR_THRESHOLD) {
+        adjustedDistance = distance - PIT_BOX_FAR_THRESHOLD;
+    }
+
+    return adjustedDistance / FEET_PER_METER;
+}
+
+function isDriverInPitBox() {
+    const distance = $prop('IRacingExtraProperties.iRacing_DistanceToPitBox');
+
+    return distance <= PIT_BOX_NEAR_THRESHOLD && distance >= PIT_BOX_FAR_THRESHOLD;
+}
+
+function displaySetupWarning() {
+    return ($prop('SessionType') == 'Qualifying' && 
+        $prop('SessionTimeLeft') == 0 &&
+        $prop('GameRawData.SessionData.DriverInfo.DriverSetupName')?.indexOf('Q') > -1);
 }
 
 function getLicenseFgColor(color) {
