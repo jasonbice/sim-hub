@@ -3,6 +3,22 @@ const PIT_BOX_NEAR_THRESHOLD = 2.108;
 const PIT_BOX_FAR_THRESHOLD = -1.8753;
 const FEET_PER_METER = 3.28084;
 
+function changed(delay, value) {
+    root['time'] = timespantoseconds($prop('SystemInfoPlugin.Uptime'));
+    root['oldstate'] = root['oldstate'] == null ? value : root['newstate'];
+    root['newstate'] = value;
+
+    if (root['newstate'] != root['oldstate']) {
+        root['triggerTime'] = root['time'];
+    }
+
+    return root['triggerTime'] == null ? false : root['time'] - root['triggerTime'] <= delay/1000;
+}
+
+function updateTargetFuel() {
+    root['target-fuel'] = $prop('Fuel') + $prop('GameRawData.Telemetry.PitSvFuel');
+}
+
 function driverMissedPitBox() {
     return getAdjustedPitBoxDistanceInMeters() < 0;
 }
