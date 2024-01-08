@@ -39,6 +39,12 @@ function isDriverInPitBox() {
     return distance <= PIT_BOX_NEAR_THRESHOLD && distance >= PIT_BOX_FAR_THRESHOLD;
 }
 
+function isDriverInFrontOfPitBox() {
+    const distance = $prop('IRacingExtraProperties.iRacing_DistanceToPitBox');
+
+    return distance > PIT_BOX_NEAR_THRESHOLD;
+}
+
 function displaySetupWarning() {
     return ($prop('SessionType') == 'Qualifying' && 
         $prop('SessionTimeLeft') == 0 &&
