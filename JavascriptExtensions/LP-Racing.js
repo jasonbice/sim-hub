@@ -3,10 +3,36 @@ const PIT_BOX_NEAR_THRESHOLD = 2.108;
 const PIT_BOX_FAR_THRESHOLD = -1.8753;
 const FEET_PER_METER = 3.28084;
 
-function isRefuelingComplete() {
-    return getRemainingRefuelLiters() < 0.05;
+/**
+ * Indicates whether the 'Go' indicator should be displayed after pit service 
+ * has completed. Refueling must be completed (if applicable), the driver 
+ * must be in the box, no tire changes may be outstanding, and the sim must
+ * report that the pit stop is no longer active.
+ */
+function displayGoIndicator() {
+    return isRefuelingComplete() && 
+        isDriverInPitBox() && 
+        !$prop('GameRawData.Telemetry.PitStopActive') &&
+        $prop('DataCorePlugin.GameRawData.Telemetry.dpLFTireChange') === 0 &&
+        $prop('DataCorePlugin.GameRawData.Telemetry.dpLRTireChange') === 0 &&
+        $prop('DataCorePlugin.GameRawData.Telemetry.dpRFTireChange') === 0 &&
+        $prop('DataCorePlugin.GameRawData.Telemetry.dpRRTireChange') === 0;
 }
 
+/**
+ * Indicates whether refueling has completed. This will report true if no
+ * fuel service was requested or when the "fuel target" and actual fuel are
+ * within 0.05L.
+ */ 
+function isRefuelingComplete() {
+    return $prop('GameRawData.Telemetry.PitSvFuel') === 0 || 
+            getRemainingRefuelLiters() < 0.05;
+}
+
+/**
+ * Gets the fuel remaining in the refual service, as determined by the refuel
+ * target minus the car's actual fuel.
+ */ 
 function getRemainingRefuelLiters() {
     return $prop('IRacingExtraProperties.iRacing_FuelRefuelTarget') - $prop('Fuel');
 }
