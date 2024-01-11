@@ -37,10 +37,19 @@ function getRemainingRefuelLiters() {
     return $prop('IRacingExtraProperties.iRacing_FuelRefuelTarget') - $prop('Fuel');
 }
 
+/**
+ * Indicates whether it's estimated that the driver missed/overshot the pit box.
+ */ 
 function driverMissedPitBox() {
     return getAdjustedPitBoxDistanceInMeters() < 0;
 }
 
+/**
+ * Gets the "adjusted" distance between the driver and the pit box. The 
+ * adjustment referenced is the start of the pit box to the end of the pit box,
+ * intended to be used to determine whether the driver is "close enough for 
+ * pit service".
+ */ 
 function getAdjustedPitBoxDistanceInMeters() {
     const distance = $prop('IRacingExtraProperties.iRacing_DistanceToPitBox');
 
@@ -59,18 +68,29 @@ function getAdjustedPitBoxDistanceInMeters() {
     return adjustedDistance / FEET_PER_METER;
 }
 
+/**
+ * Indicates whether the driver is anywhere in the pit box where pit service
+ * can be provided.
+ */ 
 function isDriverInPitBox() {
     const distance = $prop('IRacingExtraProperties.iRacing_DistanceToPitBox');
 
     return distance <= PIT_BOX_NEAR_THRESHOLD && distance >= PIT_BOX_FAR_THRESHOLD;
 }
 
+/**
+ * Indicates whether the driver is anywhere in front of their pit box.
+ */ 
 function isDriverInFrontOfPitBox() {
     const distance = $prop('IRacingExtraProperties.iRacing_DistanceToPitBox');
 
     return distance > PIT_BOX_NEAR_THRESHOLD;
 }
 
+/**
+ * Indicates whether the driver is using an incorrect setup (such as a Q setup 
+ * in a race situation).
+ */ 
 function displaySetupWarning() {
     return ($prop('SessionType') == 'Qualifying' && 
         $prop('SessionTimeLeft') == 0 &&
