@@ -3,6 +3,17 @@ const PIT_BOX_NEAR_THRESHOLD = 2.108;
 const PIT_BOX_FAR_THRESHOLD = -1.8753;
 const FEET_PER_METER = 3.28084;
 
+function displayPitOverlay() {
+    if ($prop('IsInPitLane') === 0) return false;
+
+    return isDriverInFrontOfPitBox() || 
+        $prop('GameRawData.Telemetry.PitStopActive') ||
+        // The following checks prevent a momentary false-negative from when
+        // the car stops within the pit box and pit service activates.
+        !isTireServiceComplete() ||
+        !isRefuelingComplete();
+}
+
 /**
  * Indicates whether the 'Go' indicator should be displayed after pit service 
  * has completed. Refueling must be completed (if applicable), the driver 
@@ -10,13 +21,12 @@ const FEET_PER_METER = 3.28084;
  * report that the pit stop is no longer active.
  */
 function displayGoIndicator() {
-    return isRefuelingComplete() && 
-        isDriverInPitBox() && 
-        !$prop('GameRawData.Telemetry.PitStopActive') &&
-        $prop('DataCorePlugin.GameRawData.Telemetry.dpLFTireChange') === 0 &&
-        $prop('DataCorePlugin.GameRawData.Telemetry.dpLRTireChange') === 0 &&
-        $prop('DataCorePlugin.GameRawData.Telemetry.dpRFTireChange') === 0 &&
-        $prop('DataCorePlugin.GameRawData.Telemetry.dpRRTireChange') === 0;
+    return isDriverInPitBox() && 
+        !$prop('GameRawData.Telemetry.PitStopActive') && 
+        // The following checks prevent a momentary false-positive from when
+        // the car stops within the pit box and pit service activates.
+        isTireServiceComplete() &&
+        isRefuelingComplete();
 }
 
 /**
@@ -26,7 +36,14 @@ function displayGoIndicator() {
  */ 
 function isRefuelingComplete() {
     return $prop('GameRawData.Telemetry.PitSvFuel') === 0 || 
-            getRemainingRefuelLiters() < 0.05;
+        getRemainingRefuelLiters() < 0.05;
+}
+
+function isTireServiceComplete() {
+    return $prop('DataCorePlugin.GameRawData.Telemetry.dpLFTireChange') === 0 &&
+        $prop('DataCorePlugin.GameRawData.Telemetry.dpLRTireChange') === 0 &&
+        $prop('DataCorePlugin.GameRawData.Telemetry.dpRFTireChange') === 0 &&
+        $prop('DataCorePlugin.GameRawData.Telemetry.dpRRTireChange') === 0;
 }
 
 /**
